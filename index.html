@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SINDU TAMILARASAN - ASP.NET Core Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .resume-container {
+            background: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .card-3d {
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .card-3d:hover {
+            transform: translateY(-5px) rotateX(5deg);
+            box-shadow: 0 15px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .skill-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s ease;
+            transform: perspective(500px) translateZ(0);
+        }
+
+        .skill-badge:hover {
+            transform: perspective(500px) translateZ(20px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .header-3d {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-3d::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .contact-item {
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: translateX(5px);
+            color: #667eea;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #e5e7eb;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 0 0 4px white, 0 0 0 6px #667eea;
+        }
+
+        .project-card {
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            border-left-color: #667eea;
+            background: #f9fafb;
+            transform: translateX(5px);
+        }
+
+        @media print {
+            body {
+                background: white !important;
+                padding: 0 !important;
+            }
+            .resume-container {
+                box-shadow: none !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+            }
+            .card-3d, .skill-badge {
+                transform: none !important;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .header-3d::before {
+                display: none !important;
+            }
+            .floating {
+                animation: none !important;
+            }
+            .award-icon {
+                animation: none !important;
+            }
+            .header-3d {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            }
+            .skill-badge {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            }
+            .gradient-text {
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+                -webkit-background-clip: text !important;
+                -webkit-text-fill-color: transparent !important;
+                background-clip: text !important;
+            }
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+        }
+
+        .award-icon {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tech-tag {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+            border: 1px solid #d1d5db;
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="py-8 px-4">
+    <div class="max-w-5xl mx-auto resume-container rounded-2xl overflow-hidden">
+        <!-- Header Section -->
+        <div class="header-3d text-white p-8 relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                <div>
+                    <h1 class="text-3xl font-bold mb-2 floating">SINDU TAMILARASAN</h1>
+                    <p class="text-lg font-medium opacity-90">ASP.NET Core / .NET Developer</p>
+                </div>
+                <div class="flex gap-2">
+                <button onclick="window.print()" class="no-print bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition shadow-lg mr-2">
+                    <i class="fas fa-print mr-2"></i>Print
+                </button>
+                <button onclick="downloadPDF()" class="no-print bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-opacity-90 transition shadow-lg">
+                    <i class="fas fa-download mr-2"></i>Download PDF
+                </button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-6">
+                <div class="contact-item flex items-center gap-3">
+                    <i class="fas fa-map-marker-alt text-base"></i>
+                    <span class="text-sm">Chennai, Tamil Nadu</span>
+                </div>
+                <div class="contact-item flex items-center gap-3">
+                    <i class="fas fa-envelope text-base"></i>
+                    <a href="mailto:sindu5karthi@gmail.com" class="hover:underline text-sm">sindu5karthi@gmail.com</a>
+                </div>
+                <div class="contact-item flex items-center gap-3">
+                    <i class="fas fa-phone text-base"></i>
+                    <span class="text-sm">9345316987</span>
+                </div>
+                <div class="contact-item flex items-center gap-3">
+                    <i class="fab fa-github text-base"></i>
+                    <a href="https://github.com/sindu1988" target="_blank" class="hover:underline text-sm">github.com/sindu1988</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="p-8 md:p-12">
+            <!-- Professional Summary -->
+            <section class="mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 section-title">
+                    <i class="fas fa-user-tie gradient-text mr-2"></i>Professional Summary
+                </h2>
+                <div class="card-3d bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-xl border border-purple-100">
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        Dedicated <strong>ASP.NET Core Developer</strong> with <strong>2.6 years</strong> of hands-on experience in developing enterprise-grade web and Windows applications for the automotive manufacturing domain. Strong expertise in C#, ASP.NET Core MVC, Web API, SQL Server, and Dapper with proven experience in quality control systems, data validation, dashboards, and production support. Known for reliability, clean coding practices, and the ability to work effectively in Agile (Scrum) environments. Seeking a stable and growth-oriented role to build scalable applications and support business-critical systems.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Technical Skills -->
+            <section class="mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 section-title">
+                    <i class="fas fa-code gradient-text mr-2"></i>Technical Skills
+                </h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Programming & Frameworks -->
+                    <div class="card-3d bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                        <h3 class="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-laptop-code text-purple-600 text-sm"></i>
+                            Programming & Frameworks
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">C#</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">ASP.NET Core</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">ASP.NET MVC</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Windows Forms</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">LINQ</span>
+                        </div>
+                    </div>
+
+                    <!-- Web Technologies -->
+                    <div class="card-3d bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                        <h3 class="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-globe text-purple-600 text-sm"></i>
+                            Web Technologies
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">HTML</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">CSS</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">JavaScript</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">jQuery</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">RESTful APIs</span>
+                        </div>
+                    </div>
+
+                    <!-- Database & ORM -->
+                    <div class="card-3d bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                        <h3 class="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-database text-purple-600 text-sm"></i>
+                            Database & ORM
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">SQL Server</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">MSSQL</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Dapper ORM</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Stored Procedures</span>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Platforms -->
+                    <div class="card-3d bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                        <h3 class="text-base font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                            <i class="fas fa-tools text-purple-600 text-sm"></i>
+                            Tools & Methodologies
+                        </h3>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Visual Studio</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Postman</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">GitHub</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Bitbucket</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Jira</span>
+                            <span class="skill-badge text-white px-4 py-2 rounded-lg text-sm font-medium">Agile/Scrum</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Professional Experience -->
+            <section class="mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-6 section-title">
+                    <i class="fas fa-briefcase gradient-text mr-2"></i>Professional Experience
+                </h2>
+                
+                <div class="card-3d bg-white p-6 rounded-xl shadow-lg border border-gray-100 mb-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-800">Software Developer</h3>
+                            <p class="text-purple-600 font-semibold text-sm">June 2023 – Present | Chennai</p>
+                        </div>
+                    </div>
+
+                    <!-- Projects Timeline -->
+                    <div class="space-y-6 mt-6">
+                        <!-- VIN Punching System -->
+                        <div class="timeline-item">
+                            <div class="project-card p-5 rounded-lg">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="text-base font-bold text-gray-800">VIN Punching System</h4>
+                                    <span class="text-xs text-purple-600 font-semibold">Feb 2025 – Present</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">C#</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">Windows Forms</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">SQL Server</span>
+                                </div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Designed and developed a Windows-based application to generate and manage 17-character Vehicle Identification Numbers (VIN) in compliance with ISO 3779 standards</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Integrated application with laser punching hardware for automated VIN marking during vehicle manufacturing</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Implemented business validation rules and audit logging to ensure traceability and quality compliance</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Designed and maintained SQL Server database schema for VIN tracking and reporting</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Pre-Trial & Road Trial Management System -->
+                        <div class="timeline-item">
+                            <div class="project-card p-5 rounded-lg">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="text-base font-bold text-gray-800">Pre-Trial & Road Trial Management System</h4>
+                                    <span class="text-xs text-purple-600 font-semibold">Jun 2024 – Jan 2025</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">ASP.NET Core MVC</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">C#</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">SQL Server</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">Dapper</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">JavaScript</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">jQuery</span>
+                                </div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Developed end-to-end web modules for managing vehicle pre-trial and road trial testing processes</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Implemented role-based access control for engineers, supervisors, and QA teams</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Designed optimized stored procedures and queries using Dapper ORM</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Built interactive dashboards to analyze vehicle performance, defects, and trial outcomes</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Supported unit testing and UAT, resolving defects before production deployment</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- ABS Testing System -->
+                        <div class="timeline-item">
+                            <div class="project-card p-5 rounded-lg">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="text-base font-bold text-gray-800">ABS Testing System</h4>
+                                    <span class="text-xs text-purple-600 font-semibold">Oct 2023 – May 2024</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">ASP.NET Core MVC</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">C#</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">SQL Server</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">Dapper</span>
+                                </div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Developed a quality assurance system to monitor Anti-lock Braking System (ABS) performance</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Captured and analyzed critical parameters such as wheel speed, brake pressure, and ABS status</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Collaborated closely with QA engineers to convert testing requirements into application features</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Created analytical views for pass/fail trends and safety compliance metrics</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Fuel Tank Leak Detection Systems -->
+                        <div class="timeline-item">
+                            <div class="project-card p-5 rounded-lg">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h4 class="text-base font-bold text-gray-800">Fuel Tank Leak Detection System</h4>
+                                    <span class="text-xs text-purple-600 font-semibold">Jun 2023 – Sep 2023</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">ASP.NET Core</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">C#</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">Windows Forms</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">PLC Integration</span>
+                                    <span class="tech-tag px-3 py-1 rounded-full text-xs font-medium">SQL Server</span>
+                                </div>
+                                <ul class="space-y-2">
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Built web and Windows-based systems to evaluate fuel tank integrity during production</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Developed Windows application integrated with PLC systems for real-time pressure analysis</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Implemented data validation and business rules to identify defective tanks</span>
+                                    </li>
+                                    <li class="flex items-start gap-2">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                        <span class="text-sm text-gray-700">Provided production support and troubleshooting for manufacturing teams</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Teaching Experience -->
+            <section class="mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 section-title">
+                    <i class="fas fa-chalkboard-teacher gradient-text mr-2"></i>Teaching Experience
+                </h2>
+                <div class="card-3d bg-white p-6 rounded-xl shadow-lg border border-gray-100">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-base font-bold text-gray-800">Teaching Assistant</h3>
+                            <p class="text-purple-600 font-semibold mb-3 text-sm">Agni College of Technology | Jul 2013 – May 2016</p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                    <span class="text-sm text-gray-700">Assisted faculty in delivering computer science subjects</span>
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 text-xs"></i>
+                                    <span class="text-sm text-gray-700">Mentored students, evaluated assignments, and supported academic projects</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education -->
+            <section class="mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 section-title">
+                    <i class="fas fa-graduation-cap gradient-text mr-2"></i>Education
+                </h2>
+                <div class="card-3d bg-gradient-to-r from-purple-50 to-blue-50 p-6 rounded-xl border border-purple-100">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-base font-bold text-gray-800">Bachelor of Engineering (B.E.) – Computer Science</h3>
+                            <p class="text-purple-600 font-semibold text-sm">Annamalai University, Chidambaram</p>
+                        </div>
+                        <span class="text-gray-600 font-semibold text-sm">2006 – 2010</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Achievements -->
+            <section class="mb-8">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 section-title">
+                    <i class="fas fa-trophy gradient-text mr-2"></i>Achievements
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="card-3d bg-gradient-to-br from-yellow-50 to-yellow-100 p-6 rounded-xl border-2 border-yellow-300">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fas fa-star text-xl text-yellow-500 award-icon"></i>
+                            <h3 class="text-base font-bold text-gray-800">Star Performer</h3>
+                        </div>
+                        <p class="text-gray-700 text-xs">Recognized for exceeding delivery expectations</p>
+                    </div>
+                    <div class="card-3d bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl border-2 border-blue-300">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fas fa-award text-xl text-blue-500 award-icon"></i>
+                            <h3 class="text-base font-bold text-gray-800">Performance Award</h3>
+                        </div>
+                        <p class="text-gray-700 text-xs">Appreciated for professionalism and workplace ethics</p>
+                    </div>
+                    <div class="card-3d bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl border-2 border-green-300">
+                        <div class="flex items-center gap-3 mb-2">
+                            <i class="fas fa-users text-xl text-green-500 award-icon"></i>
+                            <h3 class="text-base font-bold text-gray-800">Good Team Player</h3>
+                        </div>
+                        <p class="text-gray-700 text-xs">Acknowledged for collaboration and team support</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Declaration -->
+            <section class="mb-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4 section-title">
+                    <i class="fas fa-file-signature gradient-text mr-2"></i>Declaration
+                </h2>
+                <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                    <p class="text-sm text-gray-700 italic">
+                        I hereby declare that the above information is true and correct to the best of my knowledge.
+                    </p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <div class="bg-gradient-to-r from-gray-800 to-gray-900 text-white text-center py-6">
+            <p class="text-sm">© 2025 Sindu Tamilarasan. All rights reserved.</p>
+            <p class="text-xs mt-2 opacity-75">Last Updated: December 2025</p>
+        </div>
+    </div>
+
+    <script>
+        // PDF Download Function
+        function downloadPDF() {
+            const element = document.querySelector('.resume-container');
+            const buttons = document.querySelectorAll('.no-print');
+            
+            // Hide buttons temporarily
+            buttons.forEach(btn => btn.style.display = 'none');
+            
+            // Temporarily remove background gradient from body for better PDF rendering
+            const originalBodyBg = document.body.style.background;
+            document.body.style.background = 'white';
+            
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'Sindu_Tamilarasan_Resume.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true,
+                    logging: false,
+                    scrollY: 0,
+                    scrollX: 0,
+                    backgroundColor: '#ffffff',
+                    allowTaint: true,
+                    foreignObjectRendering: false
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait',
+                    compress: true
+                },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore original styles
+                buttons.forEach(btn => btn.style.display = 'inline-block');
+                document.body.style.background = originalBodyBg;
+            }).catch((error) => {
+                console.error('PDF generation error:', error);
+                buttons.forEach(btn => btn.style.display = 'inline-block');
+                document.body.style.background = originalBodyBg;
+                alert('PDF generation failed. Please try using the Print button instead.');
+            });
+        }
+
+        // Add smooth scroll animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            document.querySelectorAll('.card-3d, .timeline-item').forEach((el) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease-out';
+                observer.observe(el);
+            });
+        });
+
+        // 3D tilt effect on cards
+        document.querySelectorAll('.card-3d').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = (y - centerY) / 10;
+                const rotateY = (centerX - x) / 10;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
